@@ -1,0 +1,249 @@
+https://medium.com/@veerababu.narni232/writing-your-first-helm-chart-for-hello-world-40c05fa4ac5a 
+
+https://1drv.ms/o/c/abee6f5ae4d11ce9/IgDpHNHkWm_uIICrmAAAAAAAAdzgB9IETev6BfisR4Optrw?e=k4cEcY  
+
+
+In ec2 client, install eksctl and kubectl and create cluster
+
+Install helm
+
+Code
+$ curl -fsSL -o get_helm.sh  https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+
+Create a helm project
+
+Code
+helm create peoject-1
+
+Code
+yum install tree -y
+
+tree peoject-1
+
+
+
+
+K8s deployment required .ymls created. 
+
+But these are templates
+
+
+Wehave to change values.yaml file to pass values to our deployemnt, fro dev, test or prod envs as well
+
+Ex:
+
+
+
+
+It is a template, but we can pass values from values.yaml file 
+
+
+These are from deployment.yaml file 
+
+
+
+
+
+
+
+
+
+default .Chart.AppVersion
+
+Chart.appVersion  is we can maintain the version number when we update or change it in chart.yaml file 
+
+Whenever you create samplle helm projct, by defauilt they give nginx application
+
+
+
+Ls
+
+Vi vlaues.yaml
+
+
+
+How to run:
+
+Exit form project directory, becayuse we are running the poject, if we are inside the project, it wont run 
+
+Run: 
+
+Helm install 
+
+
+The helm install command take two arguments -
+	1. First argument — Release name that you pick
+	2. Second argument — Chart you want to install
+It should look like -
+Code
+helm install <FIRST_ARGUMENT_RELEASE_NAME> <SECOND_ARGUMENT_CHART_NAME>
+
+
+Code
+helm install dev peoject-1
+
+
+
+
+
+
+
+
+
+
+clusterIp create because we have values.yaml has clusterIP
+
+
+
+Change it to NodePort and save 
+
+We ran helm install peoject-1, after any modifications, use helm upgrade ,1st arg name> <2nd arg name>
+
+Code
+helm upgrade dev peoject-1
+
+
+
+
+
+
+
+
+Change the sg group inbound of worker node to that port to whilelist 
+
+Access it:
+
+
+
+
+To chang the replca count, go values.yaml and modify from 1 to 3
+
+And go back to previous directlry, and run
+
+Code
+helm upgrade dev peoject-1
+
+Install wont work, always use upgrade after moodify
+
+
+
+
+2 new pods willc rwate to match count 3
+
+
+
+
+Now try one more with different 1st argumetn 
+
+Code
+helm install test peoject-1
+
+
+
+
+Code
+helm install prod peoject-1
+
+
+We can like this multiple environments. 
+
+
+We can go to docker huba dn pull the images from there ( if its public image, no need authenticatino ) 
+
+
+Vi values.yml and change the image name 
+
+Rasool-330/flask-app , and port to 5000
+
+As that image runs on port 5000
+
+Code
+helm install prod peoject-1
+
+
+
+
+
+
+
+
+
+Kubectl describe pod <pod_nameof issue>
+
+
+
+
+Here, v 1.16.0, because of app.version
+
+In templates> deployment.yml 
+
+
+
+Remove image tag and save 
+
+
+
+
+
+Upgrade
+
+
+
+
+New containercreatin, once it is running status old pods which are in errmagepull status will automatially termianted, 
+
+
+
+
+
+
+
+Access it
+
+
+
+
+Like this, enable hpa as well
+
+Average utilisation
+Min
+Max
+
+
+
+
+
+
+Enable it as : true 
+
+And upgrade
+
+
+
+
+Like this, add stress on this pod, it will increase the pods.
+
+
+
+And for vi ingress.yml
+
+Rules, paths are there , 1paht is here, if oyu want add path rule. 1 rulw for template. 
+
+
+
+We can delete the project ,
+
+Code
+helm delete prod peoject-1
+
+
+
+
+
+To= check no.of relaeases o
+
+
+
+
